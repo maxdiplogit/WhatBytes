@@ -1,0 +1,35 @@
+{% extends "master.html" %}
+
+{% load static %}
+
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'user_profile.css' %}">
+{% endblock %}
+
+
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'info' %}
+                <div class="alert_message_success" role="alert">
+                    {{ message }}
+                </div>
+            {% elif message.tags == 'error' %}
+                <div class="alert_message_failure" role="alert">
+                    {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+<div class="user_profile_wrapper">
+    <div class="user_profile">
+        {% if user.is_authenticated %}
+            <h1>Welcome {{ user.username }}</h1>
+            <p>email: {{ user.email }}</p>
+        {% else %}
+            <p>Register or Login to see user profile</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

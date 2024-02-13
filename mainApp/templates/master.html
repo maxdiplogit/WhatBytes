@@ -1,0 +1,17 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>WhatBytes</title>
+        <link rel="stylesheet" href="{% static 'master.css' %}">
+        {% block extra_css %}{% endblock %}
+        {% block extra_js %}{% endblock %}
+    </head>
+    <body>
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>

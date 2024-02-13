@@ -1,0 +1,79 @@
+{% extends "master.html" %}
+
+{% load static %}
+
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'register.css' %}">
+{% endblock %}
+
+
+{% block extra_js %}
+    <script>
+        function validateForm() {
+            // Get the values of the password and confirm password fields
+            let password = document.getElementById("register_password").value;
+            let confirmPassword = document.getElementById("register_confirm_password").value;
+
+            console.log(password, confirmPassword);
+
+            // Check if the passwords match
+            if (password !== confirmPassword) {
+                // Display error message
+                document.getElementById("errorMessage").innerHTML = "Passwords do not match";
+                
+                // Prevent form submission
+                return false;
+            } else {
+                // Clear error message if passwords match
+                document.getElementById("errorMessage").innerHTML = "";
+                
+                // Allow form submission
+                return true;
+            }
+        }
+    </script>
+{% endblock %}
+
+
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'info' %}
+                <div class="alert_message_success" role="alert">
+                    {{ message }}
+                </div>
+            {% elif message.tags == 'error' %}
+                <div class="alert_message_failure" role="alert">
+                    {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+<div class="register">
+    <div class="register_form">
+        <h1>Register</h1>
+        <form method="post" action="{% url 'register' %}" onsubmit="return validateForm()">
+            {% csrf_token %}
+            <div class="register_username">
+                <input type="text" id="register_username" name="username" required placeholder="username">
+            </div>
+            <div class="register_email">
+                <input type="email" id="register_email" name="email" required placeholder="email">
+            </div>
+            <div class="register_password">
+                <input type="password" id="register_password" name="password" required placeholder="password">
+            </div>
+            <div class="register_confirm_password">
+                <input type="password" id="register_confirm_password" name="confirm_password" required placeholder="confirm password">
+            </div>
+            <p id="errorMessage" class="error-message"></p>
+            <div class="register_submit_button">
+                <button type="submit">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

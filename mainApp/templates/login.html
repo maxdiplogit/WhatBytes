@@ -1,0 +1,44 @@
+{% extends "master.html" %}
+
+{% load static %}
+
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+{% endblock %}
+
+
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'info' %}
+                <div class="alert_message_success" role="alert">
+                    {{ message }}
+                </div>
+            {% elif message.tags == 'error' %}
+                <div class="alert_message_failure" role="alert">
+                    {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+<div class="login">
+    <div class="login_form">
+        <h1>Login</h1>
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="login_username_or_email">
+                <input type="text" id="username_or_email" name="username_or_email" required placeholder="username or email">
+            </div>
+            <div class="login_password">
+                <input type="password" id="password" name="password" required placeholder="password">
+            </div>
+            <div class="login_submit_button">
+                <button type="submit">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
