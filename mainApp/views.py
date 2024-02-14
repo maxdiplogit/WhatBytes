@@ -109,7 +109,6 @@ def login_user(request):
 
 @user_passes_test(user_is_authenticated, login_url='login')
 def user_profile(request):
-    print("HOLAAAAAAAAAAAAAAAAAA")
     if not request.user.is_authenticated:
         return redirect('login')
     return render(request, 'user_profile.html')
